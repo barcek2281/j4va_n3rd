@@ -1,3 +1,10 @@
 spring:
+  config:
+    import: optional:file:.env[.properties]
   application:
     name: j4va_n3rd
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DBNAME}
+    password: ${POSTGRES_PASSWORD}
+    username: ${POSTGRES_USERNAME}
+    driver-class-name: org.postgresql.Driver

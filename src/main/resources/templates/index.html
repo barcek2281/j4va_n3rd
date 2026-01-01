@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>n3rd</title>
+</head>
+    <p th:if="${user != null}">Hello, <span th:text="${user.username}"></span></p>
+    <p th:if="${user == null}">Hello, Anonymous</p>
+</html>
