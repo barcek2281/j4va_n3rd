@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import kz.astanait.edu.j4va_n3rd.domain.session.Session;
 import kz.astanait.edu.j4va_n3rd.domain.user.User;
+import kz.astanait.edu.j4va_n3rd.props.SessionProps;
 import kz.astanait.edu.j4va_n3rd.service.SessionService;
 import kz.astanait.edu.j4va_n3rd.service.UserService;
 import kz.astanait.edu.j4va_n3rd.web.dto.UserLogin;
@@ -25,6 +26,8 @@ public class UserController {
     private final UserService userService;
     private final SessionService sessionService;
     private final UserMapper userMapper;
+
+    private final SessionProps sessionProps;
 
     @GetMapping("/login")
     public String loginPage(Model model) {
@@ -58,10 +61,10 @@ public class UserController {
 
         Session session = sessionService.create(user);
 
-        Cookie cookie = new Cookie("SESSIONID", session.getId().toString());
+        Cookie cookie = new Cookie(sessionProps.getName(), session.getId().toString());
         cookie.setHttpOnly(true);
         cookie.setPath("/");
-        cookie.setMaxAge(10 * 60 * 60); // 10 hours
+        cookie.setMaxAge(sessionProps.getExpiration());
         response.addCookie(cookie);
 
         return "redirect:/";
